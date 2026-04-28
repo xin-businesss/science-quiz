@@ -1,0 +1,38 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Stores user statistics and profile information",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "totalScore": { "type": "integer" },
+        "chaptersCompleted": { "type": "integer" },
+        "lastActive": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "totalScore", "chaptersCompleted", "lastActive"]
+    },
+    "ChapterProgress": {
+      "title": "Chapter Progress",
+      "description": "Tracks progress for a specific chapter",
+      "type": "object",
+      "properties": {
+        "bestScore": { "type": "integer" },
+        "attempts": { "type": "integer" },
+        "lastUpdated": { "type": "string", "format": "date-time" },
+        "difficulty": { "type": "string", "enum": ["EASY", "MEDIUM", "HARD"] }
+      },
+      "required": ["bestScore", "attempts", "lastUpdated"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile data"
+    },
+    "/users/{userId}/progress/{chapterId}": {
+      "schema": "ChapterProgress",
+      "description": "Detailed progress for each chapter"
+    }
+  }
+}

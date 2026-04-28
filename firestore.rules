@@ -1,0 +1,74 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- Helpers ---
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // --- User Profile Rules ---
+    match /users/{userId} {
+      function isValidUser(data) {
+        return data.keys().hasAll(['name', 'totalScore', 'chaptersCompleted', 'lastActive'])
+          && data.keys().size() == 4
+          && data.name is string && data.name.size() > 0 && data.name.size() <= 64
+          && data.totalScore is int && data.totalScore >= 0
+          && data.chaptersCompleted is int && data.chaptersCompleted >= 0
+          && data.lastActive == request.time;
+      }
+
+      // Allow public list for leaderboard
+      allow list: if isSignedIn() && request.query.limit <= 100;
+      
+      // Only owner can read their own full profile
+      allow get: if isOwner(userId);
+      
+      allow create: if isOwner(userId) && isValidUser(incoming());
+      
+      allow update: if isOwner(userId) 
+        && isValidUser(incoming())
+        && incoming().diff(existing()).affectedKeys().hasAny(['name', 'totalScore', 'chaptersCompleted', 'lastActive']);
+    }
+
+    // --- Progress Rules ---
+    match /users/{userId}/progress/{chapterId} {
+      function isValidProgress(data) {
+        return data.keys().hasAll(['bestScore', 'attempts', 'lastUpdated'])
+          && data.keys().size() >= 3
+          && data.bestScore is int && data.bestScore >= 0 && data.bestScore <= 100
+          && data.attempts is int && data.attempts >= 1
+          && data.lastUpdated == request.time;
+      }
+
+      allow list, get: if isOwner(userId);
+      
+      allow create: if isOwner(userId) && isValidId(chapterId) && isValidProgress(incoming());
+      
+      allow update: if isOwner(userId) 
+        && isValidProgress(incoming())
+        && incoming().diff(existing()).affectedKeys().hasAny(['bestScore', 'attempts', 'lastUpdated', 'difficulty']);
+    }
+  }
+}
