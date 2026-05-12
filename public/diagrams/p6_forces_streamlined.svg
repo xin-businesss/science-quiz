@@ -1,0 +1,8 @@
+<svg width="200" height="100" viewBox="0 0 200 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M20 75 L40 75 C45 40 100 35 150 45 C175 50 180 70 180 75 L190 75" stroke="black" stroke-width="2" fill="#e0e0e0"/>
+  <circle cx="60" cy="80" r="12" stroke="black" fill="white" stroke-width="2"/>
+  <circle cx="140" cy="80" r="12" stroke="black" fill="white" stroke-width="2"/>
+  <text x="100" y="25" font-family="Arial" font-size="10" text-anchor="middle" fill="black">Streamlined Racing Car</text>
+  <path d="M20 50 L40 50 M20 40 L35 40 M20 60 L38 60" stroke="#999" stroke-width="1" />
+  <text x="10" y="52" font-family="Arial" font-size="8" fill="#999" text-anchor="end">Air flow</text>
+</svg>

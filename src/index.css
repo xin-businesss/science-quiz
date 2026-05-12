@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Outfit:wght@100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fredoka", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-[#F7F3EE] text-[#4A453F] overflow-x-hidden;
+  }
+}
+
+.natural-card {
+  @apply bg-white rounded-[40px] border-4 border-[#E5E0D8] shadow-xl;
+}
+
+.cute-card {
+  @apply bg-white rounded-3xl border-2 border-[#E5E0D8] shadow-sm;
+}
+
+.cute-button {
+  @apply px-8 py-4 rounded-2xl font-sans font-bold text-lg transition-all active:translate-y-1 shadow-lg hover:brightness-105;
+}
+
+.cute-button-green {
+  @apply bg-[#8BA888] text-white;
+}
+
+.cute-button-clay {
+  @apply bg-[#D48D6C] text-white;
+}
+
+.cute-button-outline {
+  @apply bg-white border-2 border-[#E5E0D8] text-[#6B665F] shadow-none;
+}
+
+.hint-badge {
+  @apply px-4 py-1 bg-[#F9F7F5] border border-[#E5E0D8] text-[#8B867E] rounded-lg text-xs font-bold uppercase tracking-widest;
+}
