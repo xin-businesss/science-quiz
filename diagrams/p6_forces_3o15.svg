@@ -1,0 +1,10 @@
+<svg width="200" height="150" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="40" y="75" width="120" height="2" fill="#ccc" stroke="black"/>
+  <text x="165" y="78" font-family="Arial" font-size="10" fill="black">plastic sheet</text>
+  
+  <rect x="85" y="90" width="30" height="40" stroke="black" fill="white" stroke-width="2"/>
+  <text x="100" y="115" font-family="Arial" font-size="10" text-anchor="middle" fill="black">magnet</text>
+  
+  <path d="M100 75 L100 45 Q100 40 105 40 Q110 40 110 45 L110 65 Q110 70 105 70 Q100 70 100 65" stroke="black" stroke-width="2" fill="none"/>
+  <text x="165" y="45" font-family="Arial" font-size="10" fill="black" text-anchor="start">steel paper clip</text>
+</svg>
